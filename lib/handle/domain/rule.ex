@@ -40,6 +40,15 @@ defmodule Handle.Domain.Rule do
         }
 
   @spec parse(binary(), domain_type()) :: :begin_private_domains | nil | t()
+  @doc """
+  Parses a rule line defined in the Public Suffix List format and returns a rule struct.
+
+  The function takes a rule line and a domain type (:public, :private, or :test) and returns:
+    - `nil` for empty or comment lines.
+    - `:begin_private_domains` for the specific marker line when transitioning
+      to the private domain list.
+    - A rule struct for standard, wildcard, or exception rules.
+  """
   def parse("", _domain_type), do: nil
   def parse("// ===BEGIN PRIVATE DOMAINS===", _domain_type), do: :begin_private_domains
   def parse("//" <> _, _domain_type), do: nil
@@ -87,6 +96,17 @@ defmodule Handle.Domain.Rule do
   end
 
   @spec match?(t(), [String.t()]) :: boolean()
+  @doc """
+  Checks if a given list of domain parts matches the rule.
+
+  ## Examples
+
+      iex> rule = Handle.Domain.Rule.parse("*.example.com", :public)
+      iex> Handle.Domain.Rule.match?(rule, ["com", "example", "subdomain"])
+      true
+      iex> Handle.Domain.Rule.match?(rule, ["org", "example", "subdomain"])
+      false
+  """
   def match?(%__MODULE__{rule_type: _, parts: parts}, domain_parts),
     do: List.starts_with?(domain_parts, parts)
 end
