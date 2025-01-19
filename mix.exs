@@ -9,7 +9,18 @@ defmodule Handle.Domain.MixProject do
       start_permanent: Mix.env() == :prod,
       compilers: Mix.compilers() ++ [:rule_downloader],
       deps: deps(),
-      dialyzer: [plt_add_apps: [:mix]]
+      dialyzer: [plt_add_apps: [:mix]],
+      aliases: aliases(),
+      name: "Handle.Domain",
+      description: description(),
+      source_url: "https://github.com/handlecommerce/domain",
+      homepage_url: "https://github.com/handlecommerce/domain",
+      docs: [main: "Handle.Domain", extras: ["README.md", "LICENSE"]],
+      package: [
+        maintainers: ["markglenn@gmail.com"],
+        licenses: ["MIT"],
+        links: %{"GitHub" => "https://github.com/handlecommerce/domain"}
+      ]
     ]
   end
 
@@ -27,5 +38,17 @@ defmodule Handle.Domain.MixProject do
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false}
     ]
+  end
+
+  defp aliases do
+    [
+      lint: ["format --check-formatted", "credo --strict", "dialyzer"]
+    ]
+  end
+
+  defp description do
+    """
+    Domain parser for Elixir using the Public Suffix List.
+    """
   end
 end
