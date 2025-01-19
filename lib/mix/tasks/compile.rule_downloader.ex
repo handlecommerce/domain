@@ -10,6 +10,7 @@ defmodule Mix.Tasks.Compile.RuleDownloader do
   @number_of_days_before_refresh 1
 
   @spec run([binary]) :: Mix.Task.Compiler.status()
+  @impl true
   def run(_args) do
     case download_suffix_list() do
       :ok -> :ok
