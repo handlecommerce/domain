@@ -1,5 +1,5 @@
 defmodule Handle.Domain do
-  alias Handle.Domain.Domain
+  alias Handle.Domain.Components
   alias Handle.Domain.Rule
 
   @test_domains [
@@ -22,7 +22,7 @@ defmodule Handle.Domain do
                 |> elem(1)
                 |> Enum.concat(@test_domains)
 
-  @spec parse(String.t()) :: {:ok, Domain.t()} | {:error, String.t()}
+  @spec parse(String.t()) :: {:ok, Components.t()} | {:error, String.t()}
   def parse(host) do
     domain_parts =
       host
@@ -34,7 +34,7 @@ defmodule Handle.Domain do
     |> best_match()
     |> case do
       nil -> {:error, "Invalid domain"}
-      rule -> Domain.build(rule, domain_parts)
+      rule -> Components.build(rule, domain_parts)
     end
   end
 

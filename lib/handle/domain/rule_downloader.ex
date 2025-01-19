@@ -4,15 +4,12 @@ defmodule Handle.Domain.RuleDownloader do
   """
 
   @suffix_url "https://publicsuffix.org/list/public_suffix_list.dat"
+  @public_suffix_file Path.expand("../../../priv/public_suffix_list.dat", __DIR__)
 
-  @spec download() :: {:ok, list(Handle.Domain.Rule.t())} | {:error, String.t()}
   def download() do
-    :inets.start()
-    :ssl.start()
-
     case :httpc.request(:get, {@suffix_url, []}, [], []) do
-      {:ok, {_, _, body}} -> to_string(body)
-      _ -> "Could not read"
+      {:ok, {_, _, body}} -> File.write!(@public_suffix_file, body)
+      _ -> :error
     end
   end
 end

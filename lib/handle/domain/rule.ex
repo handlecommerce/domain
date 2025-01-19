@@ -1,4 +1,34 @@
 defmodule Handle.Domain.Rule do
+  @moduledoc """
+  Provides functionality for parsing and matching domain rules defined by the
+  Public Suffix List and as described at
+  https://github.com/publicsuffix/list/wiki/Format#format
+
+  This module defines a struct representing a domain rule with its type, length, parts,
+  and associated domain type (public, private, or test). It provides functions to parse
+  string representations of rules and to match domain parts against these rules.
+
+  ## Parsing Rules
+
+  The `parse/2` function processes a string rule and a domain type to produce a rule struct or special values:
+    - Returns `nil` for empty or comment lines.
+    - Returns `:begin_private_domains` for the specific marker line.
+    - Parses rules starting with `"!"` as exceptions.
+    - Parses rules starting with `"*."` as wildcards.
+    - All other rules are parsed as standard.
+
+  ## Matching
+
+  The `match?/2` function checks if a given list of domain parts starts with the parts of the rule,
+  determining if the rule matches the domain.
+
+  ## Examples
+
+      iex> rule = Handle.Domain.Rule.parse("*.example.com", :public)
+      iex> Handle.Domain.Rule.match?(rule, ["com", "example", "subdomain"])
+      true
+
+  """
   defstruct [:rule_type, :length, :parts, :domain_type]
 
   @type domain_type :: :public | :private | :test

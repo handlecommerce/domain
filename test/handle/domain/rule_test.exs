@@ -2,6 +2,8 @@ defmodule Handle.Domain.RuleTest do
   use ExUnit.Case
   alias Handle.Domain.Rule
 
+  doctest Handle.Domain.Rule
+
   describe "parse/1" do
     test "returns nil for lines starting with '//'" do
       assert Rule.parse("//some comment", :public) == nil
