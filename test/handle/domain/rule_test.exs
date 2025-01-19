@@ -1,6 +1,6 @@
-defmodule HandleDomain.RuleTest do
+defmodule Handle.Domain.RuleTest do
   use ExUnit.Case
-  alias HandleDomain.Rule
+  alias Handle.Domain.Rule
 
   describe "parse/1" do
     test "returns nil for lines starting with '//'" do

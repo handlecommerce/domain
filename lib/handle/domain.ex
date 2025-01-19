@@ -1,6 +1,6 @@
-defmodule HandleDomain do
-  alias HandleDomain.Domain
-  alias HandleDomain.Rule
+defmodule Handle.Domain do
+  alias Handle.Domain.Domain
+  alias Handle.Domain.Rule
 
   @test_domains [
                   "example",

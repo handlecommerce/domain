@@ -1,7 +1,7 @@
-defmodule HandleDomain.Domain do
+defmodule Handle.Domain.Domain do
   defstruct [:domain, :subdomain, :tld, :type]
 
-  alias HandleDomain.Rule
+  alias Handle.Domain.Rule
 
   @type t :: %__MODULE__{
           domain: String.t(),

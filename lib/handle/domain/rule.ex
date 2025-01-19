@@ -1,4 +1,4 @@
-defmodule HandleDomain.Rule do
+defmodule Handle.Domain.Rule do
   defstruct [:rule_type, :length, :parts, :domain_type]
 
   @type domain_type :: :public | :private | :test
